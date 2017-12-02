@@ -1,0 +1,22 @@
+{
+  "name": "three-project-starter",
+  "version": "0.0.1",
+  "description": "Simple starter for three.js projects",
+  "main": "index.html",
+  "scripts": {
+    "test": "test",
+    "build": "webpack --config ./webpack/webpack.config.js"
+  },
+  "author": "Eli Fitch",
+  "license": "MIT",
+  "devDependencies": {
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^2.30.1",
+    "webpack": "^3.9.1"
+  },
+  "dependencies": {
+    "@babel/core": "^7.0.0-beta.33",
+    "@babel/preset-env": "^7.0.0-beta.33",
+    "babel-loader": "^8.0.0-beta.0"
+  }
+}
