@@ -2,11 +2,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
+const distPath = __dirname + '/../dist';
+
 module.exports = {
   entry: './src/js/index.js',
   output: {
-    path:  __dirname + '/../dist',
+    path:  distPath,
     filename: 'bundle.js'
+  },
+  devServer: {
+    contentBase: distPath,
+    compress: true,
+    port: 9000
   },
   node: {
     fs: 'empty'
@@ -44,13 +51,19 @@ module.exports = {
           fallback: "style-loader",
           use: "css-loader"
         })
-      }
+      },
+      {
+        test: /\.(glsl|frag|vert)$/,
+        use: [{loader: 'raw-loader'}, {loader: 'glslify-loader'}],
+        exclude: /node_modules/
+      },
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      filename: 'index.html'
+      filename: 'index.html',
+      title: 'three-js-experiment'
     }),
     new ExtractTextPlugin("styles.css")
   ]
