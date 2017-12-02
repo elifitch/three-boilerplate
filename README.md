@@ -9,5 +9,10 @@ I whipped this up as a convenient starting point that will make three.js and sha
 * Builds with webpack
 * Hot reloading dev server
 
+## Usage
+* `npm run start` => fires up the dev server and watches files for changes
+* `npm run build` => normal build
+* `npm run build-simple` => includes three.js from cdnjs, doesn't transpile. Great for Codepen.
+
 ## Future
 * Turn it into a CLI since that's a thing people do now
