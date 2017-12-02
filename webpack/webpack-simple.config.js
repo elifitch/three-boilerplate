@@ -4,7 +4,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const distPath = __dirname + '/../dist';
 
 module.exports = {
-  entry: './src/js/index.js',
+  externals: {
+    'three': 'THREE'
+  },
+  entry: {
+    app: './src/js/index.js'
+  },
   output: {
     path:  distPath,
     filename: 'bundle.js'
@@ -20,25 +25,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env']
-            }
-          }
-        ]
-      },
-      {
         test: /\.(png|jpg|svg|gif)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
               name: file => {
-                return '[path][name]-[hash].[ext]';
+                return '[path][name].[ext]';
               }
             }
           }
@@ -62,7 +55,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
-      title: 'three-js-experiment'
+      title: 'three-js-experiment',
+      cdnJsThree: true
     }),
     new ExtractTextPlugin("styles.css")
   ]
