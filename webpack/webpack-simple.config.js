@@ -1,17 +1,20 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
 
 const distPath = __dirname + '/../dist';
 
 module.exports = {
   externals: {
-    'three': 'THREE'
+    'three': 'THREE',
+    'gsap/TweenMax': 'TweenMax'
   },
   entry: {
     app: './src/js/index.js'
   },
   output: {
-    path:  distPath,
+    path: distPath,
     filename: 'bundle.js'
   },
   devServer: {
@@ -21,6 +24,11 @@ module.exports = {
   },
   node: {
     fs: 'empty'
+  },
+  resolve: {
+    alias: {
+      'three/OrbitControls': path.join(__dirname, '../node_modules/three/examples/js/controls/OrbitControls.js')
+    }
   },
   module: {
     rules: [
@@ -46,7 +54,7 @@ module.exports = {
       },
       {
         test: /\.(glsl|frag|vert)$/,
-        use: [{loader: 'raw-loader'}, {loader: 'glslify-loader'}],
+        use: [{ loader: 'raw-loader' }, { loader: 'glslify-loader' }],
         exclude: /node_modules/
       },
     ]
@@ -58,6 +66,9 @@ module.exports = {
       title: 'three-js-experiment',
       cdnJsThree: true
     }),
-    new ExtractTextPlugin("styles.css")
+    new ExtractTextPlugin("styles.css"),
+    new webpack.ProvidePlugin({
+      'THREE': 'three'
+    })
   ]
 };

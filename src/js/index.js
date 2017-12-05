@@ -6,8 +6,7 @@ import Renderer from './renderer';
 import Scene from './scene';
 import RenderLoop from './render-loop';
 import ExampleCube from './example-cube';
-import makeOrbitControls from 'three-orbit-controls';
-const OrbitControls = makeOrbitControls(THREE);
+import 'three/OrbitControls';
 
 const containerEl = document.getElementsByClassName('container')[0];
 
@@ -18,7 +17,7 @@ const { scene, camera } = Scene({
   cameraFov: 45
 });
 
-const controls = new OrbitControls(camera);
+const controls = new THREE.OrbitControls(camera);
 controls.enableDamping = true;
 controls.rotateSpeed = 0.5;
 controls.dampingFactor = 0.25;
