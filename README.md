@@ -6,13 +6,13 @@ I whipped this up as a convenient starting point that will make three.js and sha
 
 ## Installation
 I find it easist to create new projects based on this repo with a little shell script.  If you drop this in your `.bashrc` or similar, you'll be good to go.
-```
+``` bash
 alias NewThreeProject="git clone git@github.com:elifitch/three-boilerplate.git && rm -rf ./three-boilerplate/.git && mv ./three-boilerplate "
 ```
 `$ NewThreeProject my-project-name`
 
 If you like to have three.js projects in a monorepo, you can do the same thing in an NPM script.
-```
+``` json
 "new-project": "git clone git@github.com:elifitch/three-boilerplate.git && rm -rf ./three-boilerplate/.git && mv ./three-boilerplate "
 ```
 `$ npm run new-project my-project-name`
