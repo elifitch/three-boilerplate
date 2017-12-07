@@ -1,80 +1,21 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require('webpack');
-const path = require('path');
+const sharedConfig = require('./webpack-shared.config');
 
-const distPath = __dirname + '/../dist';
-
-module.exports = {
-  entry: './src/js/index.js',
-  output: {
-    path: distPath,
-    filename: 'bundle.js'
-  },
-  devServer: {
-    contentBase: distPath,
-    compress: true,
-    port: 9000
-  },
-  node: {
-    fs: 'empty'
-  },
-  resolve: {
-    alias: {
-      'three/OrbitControls': path.join(__dirname, '../node_modules/three/examples/js/controls/OrbitControls.js')
-    }
-  },
-  module: {
-    rules: [
+const newRules = sharedConfig.module.rules.concat([
+  {
+    test: /\.js$/,
+    exclude: /(node_modules|bower_components)/,
+    use: [
       {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: [require('@babel/plugin-proposal-object-rest-spread')]
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(png|jpg|svg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: file => {
-                return '[path][name]-[hash].[ext]';
-              }
-            }
-          }
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
-      },
-      {
-        test: /\.(glsl|frag|vert)$/,
-        use: [{ loader: 'raw-loader' }, { loader: 'glslify-loader' }],
-        exclude: /node_modules/
-      },
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env'],
+          plugins: [require('@babel/plugin-proposal-object-rest-spread')]
+        }
+      }
     ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: 'index.html',
-      title: 'three-js-experiment'
-    }),
-    new ExtractTextPlugin("styles.css"),
-    new webpack.ProvidePlugin({
-      'THREE': 'three'
-    })
-  ]
-};
+  }
+]);
+
+module.exports = Object.assign(sharedConfig, {
+  module: { rules: newRules }
+});
