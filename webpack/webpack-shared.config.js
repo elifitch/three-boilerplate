@@ -3,6 +3,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 
+const rootResources = process.env.ROOT_RESOURCES;
+
 const distPath = __dirname + '/../dist';
 
 module.exports = {
@@ -36,9 +38,8 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: file => {
-                return '[path][name].[ext]';
-              }
+              name: rootResources ? '[name].[ext]' : '[path][name].[ext]',
+              context: './src',
             }
           }
         ]
@@ -60,8 +61,8 @@ module.exports = {
         use: [{
           loader: 'file-loader',
           options: {
-            name: '[path][name].[ext]',
-            context: './src'
+            name: rootResources ? '[name].[ext]' : '[path][name].[ext]',
+            context: './src',
           }
         }],
         exclude: /node_modules/
