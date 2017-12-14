@@ -9,7 +9,8 @@ module.exports = {
   entry: './src/js/index.js',
   output: {
     path: distPath,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: process.env.ASSET_PATH || ''
   },
   devServer: {
     contentBase: distPath,
@@ -21,7 +22,10 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'three/OrbitControls': path.join(__dirname, '../node_modules/three/examples/js/controls/OrbitControls.js')
+      'three/OrbitControls': path.join(__dirname, '../node_modules/three/examples/js/controls/OrbitControls.js'),
+      'three/LoaderSupport': path.join(__dirname, '../node_modules/three/examples/js/loaders/LoaderSupport.js'),
+      'three/OBJLoader2': path.join(__dirname, '../node_modules/three/examples/js/loaders/OBJLoader2.js'),
+      'three/MTLLoader': path.join(__dirname, '../node_modules/three/examples/js/loaders/MTLLoader.js'),
     }
   },
   module: {
@@ -49,6 +53,17 @@ module.exports = {
       {
         test: /\.(glsl|frag|vert)$/,
         use: [{ loader: 'raw-loader' }, { loader: 'glslify-loader' }],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(obj|mtl)$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[path][name].[ext]',
+            context: './src'
+          }
+        }],
         exclude: /node_modules/
       },
     ]

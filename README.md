@@ -20,13 +20,15 @@ If you like to have three.js projects in a monorepo, you can do the same thing i
 
 ## Usage
 * `npm run start` => fires up the dev server and watches files for changes
-* `npm run build` => normal build
+* `npm run build` => normal build with babel and all that
 * `npm run build-simple` => includes three.js from cdnjs, doesn't transpile. Great for Codepen.
+* `ASSET_ENV="http://my-asset-domain.com/" npm run build-simple` => Sets webpack [publicPath](https://webpack.js.org/guides/public-path/). Works on both build commands.
 
 
 ## Features
 * Three.js
 * GLSLify for easy shader development
+* Support for obj/mtl loading
 * GSAP for easy animation
 * Babel for nice ES6+ stuff
 * Builds with webpack
