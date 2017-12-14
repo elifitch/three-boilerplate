@@ -9,8 +9,8 @@ import ExampleCube from './example-cube';
 import 'three/OrbitControls';
 
 const containerEl = document.getElementsByClassName('container')[0];
-const cW = containerEl.offsetWidth;
-const cH = containerEl.offsetHeight;
+let cW = containerEl.offsetWidth;
+let cH = containerEl.offsetHeight;
 
 const renderer = Renderer({containerEl, clearColor: 0xEFEFEF});
 const { scene, camera } = Scene({
@@ -27,6 +27,8 @@ controls.dampingFactor = 0.25;
 scene.add(ExampleCube({fragmentShader: frag}));
 
 window.addEventListener('resize', () => {
+  let cW = containerEl.offsetWidth;
+  let cH = containerEl.offsetHeight;
   renderer.setSize(cW, cH);
   camera.aspect = cW / cH;
   camera.updateProjectionMatrix();
