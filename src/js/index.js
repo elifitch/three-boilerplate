@@ -5,7 +5,7 @@ import frag from './shaders/example-frag.glsl'
 import Renderer from './renderer';
 import Scene from './scene';
 import RenderLoop from './render-loop';
-import ExampleCube from './example-cube';
+import ImportSuzanne from './import-suzanne';
 import 'three/OrbitControls';
 
 const containerEl = document.getElementsByClassName('container')[0];
@@ -14,7 +14,7 @@ let cH = containerEl.offsetHeight;
 
 const renderer = Renderer({containerEl, clearColor: 0xEFEFEF});
 const { scene, camera } = Scene({
-  cameraPos: [10, 0, 0],
+  cameraPos: [0, 0, 10],
   cameraAspect: cW / cH,
   cameraFov: 45
 });
@@ -24,7 +24,9 @@ controls.enableDamping = true;
 controls.rotateSpeed = 0.5;
 controls.dampingFactor = 0.25;
 
-scene.add(ExampleCube({fragmentShader: frag}));
+ImportSuzanne({ fragmentShader: frag }).then(suzanne => {
+  scene.add(suzanne);
+})
 
 window.addEventListener('resize', () => {
   let cW = containerEl.offsetWidth;
