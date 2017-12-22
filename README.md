@@ -23,7 +23,10 @@ If you like to have three.js projects in a monorepo, you can do the same thing i
 * `npm run build` => normal build with babel and all that
 * `npm run build-simple` => includes three.js from cdnjs, doesn't transpile. Great for Codepen.
 
-## Environment Variables
+### Three.js modules
+Three.js includes a lot of helpful modules in an `examples/` directory.  These are aliased in our webpack config so you don't have to import them via the full path in every file.  You can add to or modify these aliases in `/webpack/three-modules.config.js`.
+
+### Environment Variables
 There are a few environment variables you can use to change the build process
 * `ASSET_ENV="http://my-asset-domain.com/" npm run build` => Sets webpack [publicPath](https://webpack.js.org/guides/public-path/).
 * `ROOT_RESOURCES=true npm run build` => Outputs 3d models at the root of `/dist` instead of in a folder. This will make sure your code references resources at eactly `puplicPath/fileUrl`, instead of `publicPath/someFolder/fileUrl` which might give you a 404.  Super useful when using codepen asset management.

@@ -2,6 +2,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
+const extraThreeJsModules = require('./three-modules.config');
+
+const aliasThree = Object
+  .keys(extraThreeJsModules)
+  .reduce((aliases, alias) => {
+    const relativeModulePath = extraThreeJsModules[alias];
+    aliases[alias] = path.join(
+      __dirname, `../node_modules/three/${relativeModulePath}`
+    );
+    return aliases;
+  }, {});
 
 const rootResources = process.env.ROOT_RESOURCES;
 
@@ -23,12 +34,7 @@ module.exports = {
     fs: 'empty'
   },
   resolve: {
-    alias: {
-      'three/OrbitControls': path.join(__dirname, '../node_modules/three/examples/js/controls/OrbitControls.js'),
-      'three/LoaderSupport': path.join(__dirname, '../node_modules/three/examples/js/loaders/LoaderSupport.js'),
-      'three/OBJLoader2': path.join(__dirname, '../node_modules/three/examples/js/loaders/OBJLoader2.js'),
-      'three/MTLLoader': path.join(__dirname, '../node_modules/three/examples/js/loaders/MTLLoader.js'),
-    }
+    alias: aliasThree
   },
   module: {
     rules: [
