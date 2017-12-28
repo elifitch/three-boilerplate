@@ -5,9 +5,9 @@
   "main": "index.html",
   "scripts": {
     "test": "test",
-    "build": "rm -rf dist/ && webpack --config ./webpack/webpack-full.config.js",
-    "build-simple": "rm -rf dist/ && webpack --config ./webpack/webpack-simple.config.js",
-    "start": "webpack-dev-server --config ./webpack/webpack-full.config.js"
+    "build": "rm -rf dist/ && NODE_ENV='production' webpack --config ./webpack/webpack-full.config.js",
+    "build-simple": "rm -rf dist/ && NODE_ENV='production' webpack --config ./webpack/webpack-simple.config.js",
+    "start": "NODE_ENV='development' webpack-dev-server --config ./webpack/webpack-full.config.js"
   },
   "author": "Eli Fitch",
   "license": "MIT",

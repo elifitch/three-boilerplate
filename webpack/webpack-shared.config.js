@@ -4,6 +4,9 @@ const webpack = require('webpack');
 const path = require('path');
 const extraThreeJsModules = require('./three-modules.config');
 
+const devMode = process.env.NODE_ENV === 'development';
+console.log(process.env.NODE_ENV)
+
 const aliasThree = Object
   .keys(extraThreeJsModules)
   .reduce((aliases, alias) => {
@@ -33,6 +36,7 @@ module.exports = {
   node: {
     fs: 'empty'
   },
+  devtool: devMode ? 'cheap-module-eval-source-map' : '',
   resolve: {
     alias: aliasThree
   },
