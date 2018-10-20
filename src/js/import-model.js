@@ -5,7 +5,7 @@ import 'three/MTLLoader';
 import suzanneObj from '../models/suzanne.obj';
 import suzanneMtl from '../models/suzanne.mtl';
 
-function ImportSuzanne({ fragmentShader }) {
+function ImportModel({ fragmentShader }) {
   const loadingMgr = new THREE.LoadingManager();
   const objLoader = new THREE.OBJLoader2(loadingMgr);
   objLoader.crossOrigin = '';
@@ -32,8 +32,9 @@ function ImportSuzanne({ fragmentShader }) {
       resolve(suzanne);
     };
     const loadObj = () => objLoader.load(suzanneObj, onObjLoad, onLoaderProgress, onLoaderError);
-    objLoader.loadMtl(suzanneMtl, 'suzanne.mtl', null, onLoadMtl, 'anonymous')
+    
+    objLoader.loadMtl(suzanneMtl, 'suzanne.mtl', onLoadMtl, 'anonymous')
   });
 }
 
-export default ImportSuzanne;
+export default ImportModel;

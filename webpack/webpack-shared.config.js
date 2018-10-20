@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const path = require('path');
 const extraThreeJsModules = require('./three-modules.config');
@@ -37,6 +37,7 @@ module.exports = {
     fs: 'empty'
   },
   devtool: devMode ? 'cheap-module-eval-source-map' : '',
+  mode: devMode ? 'development' : 'production',
   resolve: {
     alias: aliasThree
   },
@@ -56,10 +57,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader'
+        ]
       },
       {
         test: /\.(glsl|frag|vert)$/,
@@ -86,7 +89,9 @@ module.exports = {
       title: 'three-js-experiment',
       cdnJsThree: true
     }),
-    new ExtractTextPlugin("styles.css"),
+    new MiniCssExtractPlugin({
+      filename: 'styles.css'
+    }),
     new webpack.ProvidePlugin({
       'THREE': 'three'
     })

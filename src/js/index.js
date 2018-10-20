@@ -5,7 +5,7 @@ import frag from './shaders/example-frag.glsl'
 import Renderer from './renderer';
 import Scene from './scene';
 import RenderLoop from './render-loop';
-import ImportSuzanne from './import-suzanne';
+import ImportModel from './import-model';
 import 'three/OrbitControls';
 
 const containerEl = document.getElementsByClassName('container')[0];
@@ -24,7 +24,7 @@ controls.enableDamping = true;
 controls.rotateSpeed = 0.5;
 controls.dampingFactor = 0.25;
 
-ImportSuzanne({ fragmentShader: frag }).then(suzanne => {
+ImportModel({ fragmentShader: frag }).then(suzanne => {
   scene.add(suzanne);
 })
 
