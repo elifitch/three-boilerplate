@@ -70,7 +70,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(obj|mtl)$/,
+        test: /\.(obj|mtl|fbx|gltf)$/,
         use: [{
           loader: 'file-loader',
           options: {

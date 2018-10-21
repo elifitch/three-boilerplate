@@ -27,13 +27,13 @@ function ImportModel({ fragmentShader }) {
       if (fragmentShader) {
         suzanne.material = new THREE.ShaderMaterial({
           fragmentShader
-        })
+        });
       }
       resolve(suzanne);
     };
     const loadObj = () => objLoader.load(suzanneObj, onObjLoad, onLoaderProgress, onLoaderError);
-    
-    objLoader.loadMtl(suzanneMtl, 'suzanne.mtl', onLoadMtl, 'anonymous')
+
+    objLoader.loadMtl(suzanneMtl, 'suzanne.mtl', onLoadMtl, 'anonymous');
   });
 }
 
